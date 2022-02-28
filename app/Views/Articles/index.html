@@ -1,0 +1,20 @@
+Go back to homepage <a href="/">Friends</a>
+<br>
+
+
+(<a href="/articles/create">Create article</a>)
+
+<ul>
+{% for article in articles %}
+    <li>
+    <a href="/articles/{{ article.id }}">
+    {{ article.title }}
+    </a>
+
+       <form method="post" action="/articles/{{ article.id }}/delete">
+           <button type="submit" onclick="return confirm('Are you sure?');">X</button>
+       </form>
+
+    </li>
+{% endfor %}
+</ul>

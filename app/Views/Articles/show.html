@@ -1,0 +1,16 @@
+<a href="/articles">Back</a>
+
+<h1>{{ article.title }}</h1> (<small><a href="/articles/{{ article.id }}/edit">Edit</a></small>)
+
+
+
+<h1>{{ article.title }}</h1>
+
+
+<p>{{ article.description }}</p>
+
+<p>Article created by: {{ user.name }} {{ user.surname }} </p>
+<p>
+    <small>{{ article.createdAt }}</small>
+</p>
+
