@@ -1,2 +1,106 @@
-show all users
-Go back to homepage <a href="/">Friends</a>
+{% extends "layout.html" %}
+{% block content %}
+
+
+{% if userId != null %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="= mt-5">
+                <h3 style="color:#800080"> Friends  </h3>
+            </div>
+            {% for user in usersFriends %}
+            <div class="= mt-4">
+                <h6> {{ user.name }} {{user.surname}} </h6>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col">
+            <div class=" mt-5">
+                <h3 style="color:#800080">Invited not confirmed</h3>
+            </div>
+            {% for user in usersInvited %}
+            <div class=" mt-4">
+                <h6>  {{ user.name }} {{user.surname}} </h6>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col">
+
+            <div class=" mt-5">
+                <h3 style="color:#800080">Received invitation </h3>
+            </div>
+            {% for user in userInvitation %}
+            <div class=" mt-4">
+                <h6> {{ user.name }} {{user.surname}} </h6>
+                    <form method="post" action="/users/{{ user.userId }}/invite">
+                        <button type="submit" class="btn btn-sm btn-primary btn-block" onclick="return confirm('Are you sure?');">Confirm</button>
+                    </form>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="col">
+            <div class="= mt-5">
+                <h3 style="color:#800080">Friends to invite</h3>
+            </div>
+            {% for user in users %}
+            <div class=" mt-4">
+                  <h6>  {{ user.name }} {{user.surname}} </h6>
+                    <form method="post" action="/users/{{ user.userId }}/invite">
+                        <button type="submit" class="btn btn-sm btn-primary btn-block" onclick="return confirm('Are you sure?');">Invite</button>
+                    </form>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endif %}
+
+<!--{% if userId != null %}-->
+<!--{% for user in usersFriends %}-->
+<!--<div>-->
+<!--    <li>-->
+
+<!--       Already friends with: {{ user.name }} {{user.surname}}-->
+<!--    </li>-->
+<!--</div>-->
+<!--{% endfor %}-->
+
+<!--{% for user in usersInvited %}-->
+<!--<div>-->
+<!--<li>-->
+
+<!--    Already invited, not confirmed by:  {{ user.name }} {{user.surname}}-->
+<!--</li>-->
+<!--</div>-->
+<!--{% endfor %}-->
+
+<!--{% for user in userInvitation %}-->
+<!--<div>-->
+<!--    <li>-->
+
+<!--        Received invitation from: {{ user.name }} {{user.surname}}-->
+<!--        <form method="post" action="/users/{{ user.userId }}/invite">-->
+<!--            <button type="submit" onclick="return confirm('Are you sure?');">Confirm</button>-->
+<!--        </form>-->
+<!--    </li>-->
+<!--</div>-->
+<!--{% endfor %}-->
+
+<!--{% for user in users %}-->
+<!--<div>-->
+<!--<li>-->
+<!--        {{ user.name }} {{user.surname}}-->
+
+<!--    <form method="post" action="/users/{{ user.userId }}/invite">-->
+<!--        <button type="submit" onclick="return confirm('Are you sure?');">Invite</button>-->
+<!--    </form>-->
+<!--</li>-->
+<!--</div>-->
+
+<!--{% endfor %}-->
+<!--{% endif %}-->
+
+{% endblock %}

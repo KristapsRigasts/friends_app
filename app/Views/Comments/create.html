@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<a href="/articles" class="px-3">Back</a>
+
+<div class="input-group mt-5">
+
+<form style="max-width:300px;margin:auto" method="post" action="/articles/{{ articleId }}/comments">
+    <div class="  mb-1 mt-4">
+        <label for="comment">Comment</label>
+        <textarea id ="comment" name="comment" rows="5" cols="50"></textarea>
+        <p style="color:red;">
+            <small>{{ errors.comment[0] }}</small>
+        </p>
+    </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-sm btn-primary btn-block">Create</button>
+    </div>
+</form>
+</div>
+
+{% endblock %}

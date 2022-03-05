@@ -1,16 +1,114 @@
-<a href="/articles">Back</a>
+{% extends "layout.html" %}
+{% block content %}
 
-<h1>{{ article.title }}</h1> (<small><a href="/articles/{{ article.id }}/edit">Edit</a></small>)
+<a href="/articles" class="px-3">Back</a>
+
+<div class="container">
+    <div class="col">
+        <div class="row text-center">
+            <h1>{{ article.title }}</h1>
+        </div>
+        <div class="row text-end mt-5 ">
+            {% if userId != null and userId == article.userId %}
+            <small><a href="/articles/{{ article.id }}/edit" class="btn btn-info btn-sm">Edit</a></small>
+            {% endif %}
+        </div>
+        <div class="row mt-5 pt-3 mb-5 ">
+            <h6 class="mt-3">{{ article.description }}</h6>
+            <div class=" mt-5">
+            <small>Article created by: {{ user.name }} {{ user.surname }} </small>
+
+            <p>
+                <small>{{ article.createdAt }}</small>
+            </p>
+            </div>
+            <div class="row">
+                <p> Likes: {{ articleLikes }}</p>
+            </div>
+            <div>
+                {% if userId != null %}
+                <form method="post" action="/articles/{{ article.id }}/like">
+                    <button type="submit" class="btn btn-success btn-sm" >Like</button>
+                </form>
+                {% endif %}
+            </div>
+            <div class="row mt-5  ">
+                <div>
+                    {% if userId != null %}
+                    <a href="/articles/{{ article.id }}/comments" class="btn btn-outline-dark btn-sm">Add Comment</a>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col ">
+            {% for comment in comments %}
+            <div class="border border-primary mt-1 ">
+                <h5 class="mt-3 px-3 ">{{ comment[3] }} </h5>
+                <div class="mt-5 px-3"> <small>Commented by: {{ comment[0] }} {{ comment[1] }} </small> </div>
+            <div class="mt-1 px-3">
+                <small >{{ comment[4] }} </small>
+            </div>
+                {% if userId != null and userId == comment[2]  %}
+            <div class="text-end ">
+                <form method="post" action="/articles/{{ article.id }}/{{ comment[5] }}/comments/delete">
+                    <button type="submit" class="btn btn-secondary btn-sm" onclick="return confirm('Are you sure?');">X</button>
+                </form>
+            </div>
+                {% endif %}
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 
+<!--<h1>{{ article.title }}</h1>-->
+<!--{% if userId != null and userId == article.userId %}-->
+<!--(<small><a href="/articles/{{ article.id }}/edit">Edit</a></small>)-->
+<!--{% endif %}-->
 
-<h1>{{ article.title }}</h1>
+<!--<p> Likes: {{ articleLikes }}</p>-->
+<!--{% if userId != null %}-->
+<!--<form method="post" action="/articles/{{ article.id }}/like">-->
+<!--    <button type="submit" >Like</button>-->
+<!--</form>-->
+<!--{% endif %}-->
+<!--<p>{{ article.description }}</p>-->
 
 
-<p>{{ article.description }}</p>
+<!--<p>Article created by: {{ user.name }} {{ user.surname }} </p>-->
+<!--<p>-->
+<!--    <small>{{ article.createdAt }}</small>-->
+<!--</p>-->
+<!--<div>-->
+<!--    {% if userId != null %}-->
+<!--    <a href="/articles/{{ article.id }}/comments">Add Comment</a>-->
 
-<p>Article created by: {{ user.name }} {{ user.surname }} </p>
-<p>
-    <small>{{ article.createdAt }}</small>
-</p>
+<!--    {% endif %}-->
+<!--</div>-->
 
+<!--<ul>-->
+<!--    {% for comment in comments %}-->
+<!--    <li>-->
+<!--        <div> Commented by: {{ comment[0] }} {{ comment[1] }}  </div>-->
+<!--          <h4>{{ comment[3] }} </h4>-->
+<!--        <small>{{ comment[4] }} </small>-->
+<!--        {% if userId != null and userId == comment[2]  %}-->
+<!--        <form method="post" action="/articles/{{ article.id }}/{{ comment[5] }}/comments/delete">-->
+<!--            <button type="submit" onclick="return confirm('Are you sure?');">X</button>-->
+<!--        </form>-->
+<!--        {% endif %}-->
+
+<!--    </li>-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+
+{% endblock %}

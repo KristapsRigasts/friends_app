@@ -1,25 +1,18 @@
-<h1>Welcome to Friends</h1>
+{% extends "layout.html" %}
+{% block content %}
+<div class="text-center mt-5">
+<h1 style="color:#800080">Welcome to Friends!</h1>
+</div>
 
-<div>
-    <a href="/articles">
-        Articles
-    </a>
+{% if userId != null %}
+<div class="text-center mt-5">
+<h4> Hello, {{ userName }} ! </h4>
 </div>
-<div>
-    <a href="/users/register">
-        Sign up
-    </a>
-</div>
-<div>
-    <a href="/users/login">
-    Log in
-    </a>
-</div>
-<div>
-    <a href="/users/logout">
-    Log out
-    </a>
-</div>
-<div>
+{% endif %}
 
-</div>
+
+
+
+
+{% endblock %}
+

@@ -17,9 +17,7 @@ class Article
         $this->createdAt = $createdAt;
         $this->userId = $userId;
         $this->id = $id;
-
     }
-
 
     public function getTitle(): string
     {

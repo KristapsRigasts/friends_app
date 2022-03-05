@@ -1,20 +1,48 @@
-Go back to homepage <a href="/">Friends</a>
-<br>
+{% extends "layout.html" %}
+{% block content %}
 
-
-(<a href="/articles/create">Create article</a>)
-
-<ul>
-{% for article in articles %}
-    <li>
-    <a href="/articles/{{ article.id }}">
-    {{ article.title }}
-    </a>
-
-       <form method="post" action="/articles/{{ article.id }}/delete">
-           <button type="submit" onclick="return confirm('Are you sure?');">X</button>
-       </form>
-
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            {% if userId != null %}
+            <a href="/articles/create" class="btn btn-success btn-sm">Create article</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div>
+    <div class="container">
+<ul class="nav flex-column mt-2">
+    {% for article in articles %}
+    <li class="nav-item mt-5 p-3 border border-primary ">
+        <div >
+        <a class="nav-link fs-4 text-uppercase text-dark " href="/articles/{{ article.id }}">{{ article.title }}</a>
+    </div>
+        {% if userId != null and userId == article.userId  %}
+        <div class="text-end">
+        <form method="post" action="/articles/{{ article.id }}/delete">
+            <button class="btn btn-secondary btn-sm" type="submit" onclick="return confirm('Are you sure?');">X</button>
+        </form>
+        </div>
+        {% endif %}
     </li>
-{% endfor %}
+    {% endfor %}
 </ul>
+</div>
+</div>
+
+
+<!--<ul>-->
+<!--{% for article in articles %}-->
+<!--    <li>-->
+<!--    <a href="/articles/{{ article.id }}">{{ article.title }}</a>-->
+<!--        {% if userId != null and userId == article.userId  %}-->
+<!--        <form method="post" action="/articles/{{ article.id }}/delete">-->
+<!--           <button type="submit" onclick="return confirm('Are you sure?');">X</button>-->
+<!--       </form>-->
+<!--        {% endif %}-->
+
+<!--    </li>-->
+<!--{% endfor %}-->
+<!--</ul>-->
+{% endblock %}

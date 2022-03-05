@@ -1,9 +1,33 @@
-Go back to homepage <a href="/">Friends</a>
-<h4>LOGIN</h4>
+{% extends "layout.html" %}
+{% block content %}
+<div class="mt-5">
+<form style="max-width:300px;margin:auto" action="/users/login" method="post">
 
-<form action="/users/login" method="post">
-    <input type="text" name="email" placeholder="Email">
-    <input type="password" name="password" placeholder="Password">
-    <br>
-    <button type="submit" name="submit">LOGIN</button>
+    <h3  style="color:#800080">LOGIN</h3>
+<div class="input-group">
+<div class="mb-1 mt-4">
+    <label for="email"></label>
+    <input id="email" type="text" name="email" placeholder="Email" value="{{ inputs.email }}">
+    <p style="color:red;">
+        <small>{{ errors.email[0] }}</small>
+    </p>
+</div>
+<div>
+    <label for="password"></label>
+    <input id ="password" type="password"  name="password" placeholder="Password">
+    <p style="color:red;">
+        <small>{{ errors.password[0] }}</small>
+    </p>
+
+</div>
+    <div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+    <button type="submit" name="submit" class="btn btn-sm btn-primary btn-block">LOGIN</button>
+    </div>
+    </div>
+</div>
+
 </form>
+</div>
+
+{% endblock %}

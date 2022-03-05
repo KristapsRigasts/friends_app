@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Redirect;
 use App\View;
 
@@ -21,7 +20,6 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('POST', '/users/login', ['App\Controllers\UsersController', 'validateLogIn']);
     $r->addRoute('GET', '/users/logout', ['App\Controllers\UsersController', 'logOut']);
 
-
     //articles
     $r->addRoute('GET', '/articles', ['App\Controllers\ArticlesController', 'index']);
     $r->addRoute('GET', '/articles/{id:\d+}', ['App\Controllers\ArticlesController', 'show']);
@@ -34,6 +32,13 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/articles/{id:\d+}/edit', ['App\Controllers\ArticlesController', 'edit']);
     $r->addRoute('POST', '/articles/{id:\d+}', ['App\Controllers\ArticlesController', 'update']);
 
+    $r->addRoute('POST', '/articles/{id:\d+}/like', ['App\Controllers\ArticlesController', 'like']);
+
+    $r->addRoute('POST', '/articles/{id:\d+}/comments', ['App\Controllers\CommentsController', 'store']);
+    $r->addRoute('GET', '/articles/{id:\d+}/comments', ['App\Controllers\CommentsController', 'create']);
+    $r->addRoute('POST', '/articles/{id:\d+}/{cid:\d+}/comments/delete', ['App\Controllers\CommentsController', 'delete']);
+
+    $r->addRoute('POST', '/users/{id:\d+}/invite', ['App\Controllers\UsersController', 'invite']);
 });
 
 // Fetch method and URI from somewhere
@@ -80,4 +85,12 @@ $response = (new $controller)->$method($vars);
         }
 
         break;
+}
+
+if (isset($_SESSION['errors'])) {
+    unset($_SESSION['errors']);
+}
+
+if (isset($_SESSION['inputs'])) {
+    unset($_SESSION['inputs']);
 }

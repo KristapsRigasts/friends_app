@@ -6,18 +6,18 @@ class User
 {
     private string $name;
     private string $surname;
-    private ?int $id;
+    private ?int $user_id;
 
-    public function __construct(string $name, string $surname, ?int $id = null)
+    public function __construct(string $name, string $surname, ?int $user_id = null)
     {
         $this->name = $name;
         $this->surname = $surname;
-        $this->id = $id;
+        $this->user_id = $user_id;
     }
 
-    public function getId(): int
+    public function getUserId(): int
     {
-        return $this->id;
+        return $this->user_id;
     }
 
     public function getName(): string
